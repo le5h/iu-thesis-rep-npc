@@ -6,12 +6,14 @@ package rep_sys;
 
 public class Main {
 
-	public static void main(String[] args){
-		
-		Tests.runAll(); // run all tests
-		
-		System.exit(0);
-		
-	}
-	
+    public static void main(String[] args){
+        
+        // run all tests
+        Tests.runAll();
+        
+        // suicide
+        System.exit(0);
+        
+    }
+    
 }
