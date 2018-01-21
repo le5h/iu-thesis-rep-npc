@@ -9,32 +9,23 @@ public class EventCategories {
     private static ArrayList<String> allCategories = new ArrayList<String>();
     
     private static String add(String category) {
-        
         String temp = EventCategories.search(category);
-        
         if(temp == null) {
             allCategories.add(category);
             temp = category;
         }
-        
         return temp;
-        
     }
     
     private static String search(String category) {
-        
         String temp = null;
-        
         Iterator<String> iter = allCategories.iterator();
-        
         while(iter.hasNext()){
             temp = iter.next();
             if(temp.equals(category)) { break; }
             temp = null;
         }
-        
         return temp;
-        
     }
     
     private ArrayList<String> categories = new ArrayList<String>();
@@ -46,14 +37,12 @@ public class EventCategories {
         categories.add(category); // TODO: check duplicates
     }
     
-    // string
+    // list of cats
     public String toString() {
         return String.join(", ", this.categories) + ".";
     }
     
     // constructor
-    public EventCategories() {
-        
-    }
+    public EventCategories() { }
     
 }

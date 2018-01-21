@@ -22,6 +22,7 @@ public class EventMemory {
     
     // value function
     public float value = 0.0f;
+    public float value() { return this.value; }
     public float value(NPC npc) {
         this.value = this.deacy() * ((npc.likes(this.event) - npc.hates(this.event)) * this.event.weight());
         return this.value;

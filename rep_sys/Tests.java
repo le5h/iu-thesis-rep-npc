@@ -12,6 +12,10 @@ public class Tests {
         
         testNPC();
         
+        testNetwork();
+        
+        testQuest();
+        
     }
 	
     public static void testNPC() {
@@ -37,7 +41,7 @@ public class Tests {
         npc2.hate("Cat");
         
         // trust
-        Logger.log("NPC1 (likes): " + npc1.likes.toString());
+        Logger.log("NPC1 (likes): " + npc1.likes());
         Logger.log("Trust 1-2: " + Float.toString(npc1.trust(npc2)));
         
         // some changes
@@ -45,7 +49,7 @@ public class Tests {
         npc2.like("Music");
         
         // new trust
-        Logger.log("NPC1 (likes): " + npc1.likes.toString());
+        Logger.log("NPC1 (likes): " + npc1.likes());
         Logger.log("Trust 1-2: " + Float.toString(npc1.trust(npc2)));
         
         testing("NPC.mood");
@@ -126,7 +130,26 @@ public class Tests {
         
     }
     
+    public static void testNetwork() {
+    	
+    	testing("Network");
+    	
+    	Network<NPC> gossips = new Network<NPC>();
+    	
+    	// create some NPCs
+        NPC npc1 = new NPC("Vasya Pupkin");
+        NPC npc2 = new NPC("Olya Zaharova");
+    	
+    	Logger.log("Add NPC1: " + gossips.add(npc1));
+    	Logger.log("Add NPC2: " + gossips.add(npc2));
+    	
+    	Logger.log("Connect NPC1 and NPC2: " + gossips.connect(npc1, npc2));
+    	
+    }
+    
     public static void testQuest() {
+    	
+    	testing("Quest");
     	
     	// TODO: test
     	
