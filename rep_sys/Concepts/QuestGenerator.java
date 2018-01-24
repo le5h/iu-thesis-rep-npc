@@ -1,5 +1,9 @@
 package rep_sys.Concepts;
 
-public class QuestGenerator {
+import rep_sys.Generator;
+
+public class QuestGenerator extends Generator {
+	
+	
 	
 }

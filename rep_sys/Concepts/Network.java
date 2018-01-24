@@ -3,6 +3,7 @@ package rep_sys.Concepts;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 public class Network<A> {
 	
@@ -37,6 +38,7 @@ public class Network<A> {
 	
 	// connect nodes
 	public boolean connect(A from, A to) {
+		if(from.equals(to)) return true;
 		ArrayList<A> edgesFrom = nodes.get(from);
 		ArrayList<A> edgesTo = nodes.get(to);
 		if((edgesFrom != null) && (edgesTo != null)){
@@ -56,6 +58,18 @@ public class Network<A> {
             }
         }
 		return false;
+	}
+	
+	//
+	public void makeConnected() {
+		List<A> nodes = nodes();
+		Iterator<A> iter = nodes.iterator();
+		A caurr = null, prev = null;
+		while(iter.hasNext()){
+        	A curr = iter.next();
+            if(prev != null) { connect(prev, curr); }
+            prev = curr;
+        }
 	}
 	
 	// constructor

@@ -1,8 +1,0 @@
-{
-  "eventCategories": [ "Kill Bad", "Kill Good", "Money", "Treasure", "Help", "Fail"],
-  "firstNames": [ "Jonh", "Gabe", "Joseph", "Alexey"],
-  "lastNames": [ "Gayduk", "Brown", "Carmack", "Newel"],
-  "quests": [
-    {"title": "Find the Dreagon", "description": "Really go and Find, now!", "primary": true, "categories": ["Dragon", "Search"]}
-  ]
-}

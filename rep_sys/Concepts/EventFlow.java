@@ -19,7 +19,11 @@ public class EventFlow {
         	closest = community.edges(member);
         	event = member.tell();
         	Iterator<NPC> part = closest.iterator();
-        	while(part.hasNext()){ part.next().hear(event); }
+        	while(part.hasNext()){
+        		NPC next = part.next();
+        		// transmission probability
+        		if(next.tpk(member)) { next.hear(event); }
+        	}
         }
 	}
 	

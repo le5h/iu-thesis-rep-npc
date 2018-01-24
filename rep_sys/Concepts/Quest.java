@@ -11,7 +11,7 @@ public class Quest {
     // quest description
     private String description;
     public String description() { return this. description; }
-    public void setDescription(String description) { this.description = description; }
+    public void description(String description) { this.description = description; }
     
     // main quest mark
     private boolean primary = false;
@@ -33,10 +33,14 @@ public class Quest {
     // related categories
     private ArrayList<String> categories = new ArrayList<String>();
     public ArrayList<String> categories() {
-        return this.categories; // TODO: copy list (or replace method)
+        return new ArrayList<String>(this.categories);
     }
     public void addCategory(String category) {
         categories.add(category);
+    }
+    
+    public String toString() {
+    	return title + ": " + description;
     }
     
     // constructor

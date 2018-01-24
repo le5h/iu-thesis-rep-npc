@@ -16,14 +16,17 @@ public class Event {
     public Agent agent() { return this.agent; }
     
     // related categories
-    private EventCategories categories = new EventCategories();
-    public EventCategories categories() {
-        return this.categories; // TODO: copy list (or replace method)
+    private Categories categories = new Categories();
+    public ArrayList<String> categories() {
+        return this.categories.list(); // TODO: copy list (or replace method)
     }
     public void addCategory(String category) { categories.addCategory(category); }
     public void addCategories(ArrayList<String> categories) {
 		Iterator<String> iter = categories.iterator();
         while(iter.hasNext()){ addCategory(iter.next()); }
+    }
+    public void removeCategory(String category) {
+    	categories.removeCategory(category);
     }
     
     // link to quest

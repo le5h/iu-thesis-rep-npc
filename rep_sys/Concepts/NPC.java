@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class NPC extends Agent {
     
-    // TODO: all NPC list
+    // TODO: all NPCs list
     
 	// intersection
 	private int cross(ArrayList<String> a, ArrayList<String> b) {
@@ -21,19 +21,19 @@ public class NPC extends Agent {
 	}
 	
     // likes
-    private EventCategories likes = new EventCategories();
+    private Categories likes = new Categories();
     public void like(String category) { likes.addCategory(category); }
     public String likes() { return likes.toString(); }
     public float likes(Event event) {
-        return cross(likes.categories(), event.categories().categories());
+        return cross(likes.list(), event.categories());
     }
     
     // dislikes
-    private EventCategories hates = new EventCategories();
+    private Categories hates = new Categories();
     public void hate(String category) { hates.addCategory(category); }
     public String hates() { return hates.toString(); }
     public float hates(Event event) {
-        return cross(hates.categories(), event.categories().categories());
+        return cross(hates.list(), event.categories());
     }
     
     // TODO: unlike / unhate
@@ -50,10 +50,10 @@ public class NPC extends Agent {
     
     // trust (transmission probability)
     public float trust(NPC a, NPC b) {
-    	float aCats = a.likes.categories().size() +  a.hates.categories().size();
-    	float bCats = b.likes.categories().size() +  b.hates.categories().size();
-    	float bothLikes = (float) cross(a.likes.categories(),b.likes.categories());
-    	float bothHates = (float) cross(a.hates.categories(),b.hates.categories());
+    	float aCats = a.likes.list().size() +  a.hates.list().size();
+    	float bCats = b.likes.list().size() +  b.hates.list().size();
+    	float bothLikes = (float) cross(a.likes.list(),b.likes.list());
+    	float bothHates = (float) cross(a.hates.list(),b.hates.list());
     	return a.mood() * ( (bothLikes + bothHates) / (aCats + bCats) + a.minTrust());
     }
     public float trust(NPC that) { return trust(this, that); }
@@ -65,13 +65,14 @@ public class NPC extends Agent {
     public EventMemory topValue() {
     	EventMemory memory = null;
 		Iterator<EventMemory> iter = memories.iterator();
-        float max = Float.MIN_VALUE;
+        float max = Float.NEGATIVE_INFINITY;
         while(iter.hasNext()){
         	EventMemory temp = iter.next();
             if((temp.timestamp() < WorldTime.current())) { // only old memories (is it correct?)
-            	if(temp.value(this) > max) {
+            	float val = temp.value(this);
+            	if(val > max) {
             		memory = temp;
-            		max = temp.value;
+            		max = val;
             	}
             }
         }
@@ -79,7 +80,10 @@ public class NPC extends Agent {
     }
     
     // share top memory
-    public Event tell() { return topValue().event(); }
+    public Event tell() {
+    	EventMemory top = topValue();
+    	return top == null? null : top.event();
+    }
     
     // hear about
     public void hear(Event event) {
@@ -95,6 +99,12 @@ public class NPC extends Agent {
             }
         }
         memories.add(new EventMemory(event));
+    }
+    
+    // transmission probability of knowledge
+    public boolean tpk(NPC that) {
+    	float random = (float) Math.random();
+    	return this.trust(that) >= random;
     }
     
     // reputation of player(s)

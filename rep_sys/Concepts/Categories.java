@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public class EventCategories {
+public class Categories {
     
     private static ArrayList<String> allCategories = new ArrayList<String>();
     
     private static String add(String category) {
-        String temp = EventCategories.search(category);
+        String temp = Categories.search(allCategories, category);
         if(temp == null) {
             allCategories.add(category);
             temp = category;
@@ -17,9 +17,9 @@ public class EventCategories {
         return temp;
     }
     
-    private static String search(String category) {
+    private static String search(ArrayList<String> list, String category) {
         String temp = null;
-        Iterator<String> iter = allCategories.iterator();
+        Iterator<String> iter = list.iterator();
         while(iter.hasNext()){
             temp = iter.next();
             if(temp.equals(category)) { break; }
@@ -29,12 +29,18 @@ public class EventCategories {
     }
     
     private ArrayList<String> categories = new ArrayList<String>();
-    public ArrayList<String> categories(){
-        return this.categories; // TODO: return copy
+    public ArrayList<String> list(){
+        return new ArrayList<String>(this.categories);
     }
     public void addCategory(String category) {
-        category = EventCategories.add(category);
-        categories.add(category); // TODO: check duplicates
+        category = Categories.add(category);
+        if(!categories.contains(category)) { categories.add(category); }
+    }
+    public void removeCategory(String category) {
+    	category = search(allCategories, category);
+    	if(category != null && categories.contains(category)) {
+    		categories.remove(category);
+    	}
     }
     
     // list of cats
@@ -43,6 +49,6 @@ public class EventCategories {
     }
     
     // constructor
-    public EventCategories() { }
+    public Categories() { }
     
 }
